@@ -50,26 +50,6 @@ class Remix extends BaseDocset
             });
         }
 
-        // if (Str::contains($file, "{$this->url()}/resources.html")) {
-        //     $crawler->filter('h2')->each(function (HtmlPageCrawler $node) use ($entries, $file) {
-        //         $entries->push([
-        //             'name' => $this->cleanAnchorText($node->text()),
-        //             'type' => 'Resource',
-        //             'path' => Str::after($file . '#' . Str::slug($node->text()), $this->innerDirectory()),
-        //         ]);
-        //     });
-
-        //     $crawler->filter('h3')->each(function (HtmlPageCrawler $node) use ($entries, $file) {
-        //         $entries->push([
-        //             'name' => $this->cleanAnchorText($node->text()),
-        //             'type' => 'Section',
-        //             'path' => Str::after($file . '#' . Str::slug($node->text()), $this->innerDirectory()),
-        //         ]);
-        //     });
-
-        //     return $entries;
-        // }
-
         return $entries;
     }
 
