@@ -1,5 +1,6 @@
 {
     "require": {
-        "godbout/dash-docset-builder": "^2.0"
+        "godbout/dash-docset-builder": "^2.0",
+        "wa72/htmlpagedom": "^2.0"
     }
 }

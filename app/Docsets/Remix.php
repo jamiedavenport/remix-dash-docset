@@ -21,8 +21,7 @@ class Remix extends BaseDocset
 
     public function entries(string $file): Collection
     {
-        // TODO: Get from the internet
-        $crawler = HtmlPageCrawler::create(Storage::get($file));
+        $crawler = HtmlPageCrawler::create($this->sanitisedHtml($file));
 
         $entries = collect();
 
@@ -55,16 +54,27 @@ class Remix extends BaseDocset
 
     public function format(string $file): string
     {
-        $crawler = HtmlPageCrawler::create(Storage::get($file));
+        $crawler = HtmlPageCrawler::create($this->sanitisedHtml($file));
 
         $this->removeNav($crawler);
 
         return $crawler->saveHTML();
     }
 
+    protected function sanitisedHtml(string $file) {
+        $html = Storage::get($file);
+        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+        return $html;
+    }
+
     protected function removeNav(HtmlPageCrawler $crawler)
     {
         $crawler->filter('div.flex-shrink-0.hidden')->remove();
         $crawler->filter('div[role="navigation"]')->remove();
+        $summary = $crawler->filter('summary');
+        
+        if ($summary->count() > 0) {
+            $summary->ancestors()->closest('div')->remove();
+        }
     }
 }
